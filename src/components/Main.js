@@ -1,27 +1,31 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {api} from "../utils/Api";
 import Card from "./Card";
 
 function Main(props) {
 
-    const [userName, setUserName] = React.useState();
-    const [userDescription, setUserDescription] = React.useState();
-    const [userAvatar, setUserAvatar] = React.useState();
-    const [cards, setCards] =React.useState([]);
+    const [userName, setUserName] = useState(null);
+    const [userDescription, setUserDescription] = useState(null);
+    const [userAvatar, setUserAvatar] = useState(null);
+    const [cards, setCards] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         Promise.all([api.setProfileInfo(), api.getInitialCards()])
-            .then((data) => {
-                setUserName(data[0].name)
-                setUserDescription(data[0].about)
-                setUserAvatar(data[0].avatar)
-                return data
-            })
-            .then((data) => {
-                setCards(data[1])
+            .then(([user, cards]) => {
+                setUserName(user.name)
+                setUserDescription(user.about)
+                setUserAvatar(user.avatar)
                 return cards
             })
+            .then((cards) => {
+                setCards(cards)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     },[])
+
+
 
     return (
         <main className="main">
@@ -44,17 +48,7 @@ function Main(props) {
             <section className="gallery">
                 {cards.map((card) => (
                     <Card key={card._id} onCardClick={props.onCardClick} card={card}>
-                        <button className="gallery__card-img-button" type="button">
-                            <img className="gallery__card-img" src={card.link} alt={card.name}/>
-                        </button>
-                        <button className="gallery__card-delete" type="button"></button>
-                        <div className="gallery__card-info">
-                            <h2 className="gallery__card-title">{card.name}</h2>
-                            <div className="gallery__card-like-container">
-                                <button className="gallery__card-like" type="button"></button>
-                                <p className="gallery__card-like-count">{card.likes.length}</p>
-                            </div>
-                        </div>
+
                     </Card>
                 ))
                 }
