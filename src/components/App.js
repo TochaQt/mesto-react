@@ -73,11 +73,11 @@ function App() {
             .then(() => {
                 closeAllPopups();
             })
-            .then(() => {
-                setLoading(false);
-            })
             .catch((err) => {
                 console.log(err)
+            })
+            .finally(() => {
+                setLoading(false);
             })
     }
 
@@ -92,11 +92,11 @@ function App() {
             .then(() => {
                 closeAllPopups();
             })
-            .then(() => {
-                setLoading(false);
-            })
             .catch((err) => {
                 console.log(err)
+            })
+            .finally(() => {
+                setLoading(false);
             })
     }
 
@@ -141,11 +141,11 @@ function App() {
             .then(() => {
                 closeAllPopups();
             })
-            .then(() => {
-                setLoading(false);
-            })
             .catch((err) => {
                 console.log(err)
+            })
+            .finally(() => {
+                setLoading(false);
             })
     }
 
@@ -155,30 +155,58 @@ function App() {
 
         api.deleteCard(card._id)
             .then((data) => {
-            setCards((data) => data.filter((c) => c._id !== card._id));
+                setCards((data) => data.filter((c) => c._id !== card._id));
         })
             .then(() => {
                 closeAllPopups();
             })
-            .then(() => {
-                setLoading(false);
-            })
             .catch((err) => {
                 console.log(err)
-        })
+            })
+            .finally(() => {
+                setLoading(false);
+            })
     }
 
   return (
       <CurrentUserContext.Provider value={currentUser}>
           <div className="page">
             <Header />
-            <Main onEditProfile={handleEditProfileClick} onAddPlace={handleEditPlaceClick} onEditAvatar={handleEditAvatarClick}
-                  onCardClick={handleCardClick} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
+            <Main
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleEditPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                cards={cards}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+            />
             <Footer />
-            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} isLoading={loading} />
-            <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} isLoading={loading} />
-            <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddCard} isLoading={loading} />
-            <DeletePlacePopup isOpen={isDeletePlacePopupOpen} onClose={closeAllPopups} onDeleteCard={handleDeleteCard} isLoading={loading} card={cardToDelete} />
+            <EditProfilePopup
+                isOpen={isEditProfilePopupOpen}
+                onClose={closeAllPopups}
+                onUpdateUser={handleUpdateUser}
+                isLoading={loading}
+            />
+            <EditAvatarPopup
+                isOpen={isEditAvatarPopupOpen}
+                onClose={closeAllPopups}
+                onUpdateAvatar={handleUpdateAvatar}
+                isLoading={loading}
+            />
+            <AddPlacePopup
+                isOpen={isAddPlacePopupOpen}
+                onClose={closeAllPopups}
+                onAddCard={handleAddCard}
+                isLoading={loading}
+            />
+            <DeletePlacePopup
+                isOpen={isDeletePlacePopupOpen}
+                onClose={closeAllPopups}
+                onDeleteCard={handleDeleteCard}
+                isLoading={loading}
+                card={cardToDelete}
+            />
             <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           </div>
       </CurrentUserContext.Provider>
