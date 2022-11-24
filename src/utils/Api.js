@@ -30,8 +30,8 @@ class Api {
                 'Content-Type': this._headers.contentType
             },
             body: JSON.stringify({
-                name: formData.profileName,
-                about: formData.profileDescription
+                name: formData.name,
+                about: formData.about
             })
         })
             .then(res =>
@@ -47,7 +47,7 @@ class Api {
                 'Content-Type': this._headers.contentType
             },
             body: JSON.stringify({
-                avatar: formData.profileAvatar
+                avatar: formData.avatar
             })
         })
             .then(res =>
@@ -63,8 +63,8 @@ class Api {
                 'Content-Type': this._headers.contentType
             },
             body: JSON.stringify({
-                name: formData.cardName,
-                link: formData.cardImg
+                name: formData.name,
+                link: formData.link
             })
         })
             .then(res =>

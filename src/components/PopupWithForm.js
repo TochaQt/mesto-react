@@ -2,7 +2,7 @@ function PopupWithForm(props) {
     return(
         <section className={`popup popup_${props.name} ${props.isOpen ? 'popup_opened' : ""}`}>
             <div className="popup__container">
-                <form className={`popup__form popup__form_${props.name}`} name={props.name} noValidate>
+                <form className={`popup__form popup__form_${props.name}`} name={props.name} onSubmit={props.onSubmit} noValidate>
                     <h3 className="popup__title">{props.title}</h3>
                     <div className="popup__input-place">
                         {props.children}
@@ -14,5 +14,4 @@ function PopupWithForm(props) {
         </section>
     )
 }
-
 export default PopupWithForm;
